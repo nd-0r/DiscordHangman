@@ -24,13 +24,13 @@ client.on('message', msg => {
     } else if (msg.content.toLowerCase() === "!stop") {
         reset();
         started = false;
-    } else if (started) {
+    } else if (started && msg.content.startsWith('!')) {
         game(msg);
     }
 });
 
 function game(msg) {
-    var content = msg.content.toLowerCase();
+    var content = msg.content.toLowerCase().substring(1);
     if (attempts > tries) {
         lose(msg);
     } else if (charGuess.test(content)) {
