@@ -5,8 +5,8 @@ var started = false;
 const xmlhttprequest = require('xmlhttprequest');
 var word = "parmel";
 var blanks = "";
-const charGuess = new RegExp('\b[a-z]\b,\d');
-const strGuess = new RegExp('^[a-z]+$');
+let charGuess = new RegExp('\b[a-z]\b,\d');
+let strGuess = new RegExp('^[a-z]+$');
 var attempts = 0;
 const tries = 6;
 
@@ -31,6 +31,9 @@ client.on('message', msg => {
 
 function game(msg) {
     var content = msg.content.toLowerCase().substring(1);
+    console.log("CONTENT: " + content);
+    console.log("test charGuess: " + charGuess.test(content));
+    console.log("test strGuess: " + strGuess.test(content));
     if (attempts > tries) {
         lose(msg);
     } else if (charGuess.test(content)) {
