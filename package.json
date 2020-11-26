@@ -1,6 +1,6 @@
 {
-“name”: “Hangman”,
-“version”: “1.0.0”,
+"name": "Hangman",
+"version": "1.0.0",
 “description”: “My first attempt at a discord bot”,
 “main”: “index.js”,
 “author”: “Andrew Orals”,

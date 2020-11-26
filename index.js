@@ -100,5 +100,3 @@ function RandomWord() {
 		blanks += '_';
 	}
 }
-
-client.login('NzgxMzE1NDYwMTQ2Mzk3MTk0.X772uQ.hYltczJTp_JfS7TIWluwwJCD-tA');
