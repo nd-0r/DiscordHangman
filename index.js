@@ -1,9 +1,6 @@
 const Discord = require('discord.js');
 var auth = require('./auth.json');
-const client = new Discord.Client({
-    token: auth.token,
-    autorun: true
-});
+const client = new Discord.Client({ autorun: true });
 var started = false;
 const xmlhttprequest = require('xmlhttprequest');
 var word = "parmel";
@@ -100,3 +97,5 @@ function RandomWord() {
 		blanks += '_';
 	}
 }
+
+client.login(auth.token);
