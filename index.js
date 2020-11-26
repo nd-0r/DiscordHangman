@@ -5,8 +5,8 @@ var started = false;
 const xmlhttprequest = require('xmlhttprequest');
 var word = "parmel";
 var blanks = "";
-let charGuess = new RegExp('\b[a-z]\b,\d');
-let strGuess = new RegExp('^[a-z]+$');
+const charGuess = /\b[a-z]\b,\d/;
+const strGuess = /^[a-z]+$/;
 var attempts = 0;
 const tries = 6;
 
