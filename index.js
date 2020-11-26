@@ -16,7 +16,7 @@ client.on('ready', () => {
     console.log(client);
 });
 
-client.on('message', () => {
+client.on('message', msg => {
     if (msg.content.toLowerCase() === "!start") {
         started = true;
         msg.reply("Starting hangman. Reply '!stop' to exit");
@@ -32,7 +32,7 @@ function game(msg) {
     var content = msg.content.toLowerCase();
     if (attempts > tries) {
         lose(msg);
-    } else if (charGuess.text(content)) {
+    } else if (charGuess.test(content)) {
         const str = content.split(",");
         var letter = str[0];
         var index = str[1];
