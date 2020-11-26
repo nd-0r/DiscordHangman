@@ -8,23 +8,10 @@ const strGuess = new RegExp("^[a-z]+$");
 var attempts = 0;
 const tries = 6;
 
-function RandomWord() {
-    var requestStr = "http://randomword.setgetgo.com/get.php";
-    let xhr = new xmlhttprequest.XMLHttpRequest();
-    xhr.open("GET", requestStr, false);
-    xhr.send();
-    // word = xhr.responseText;
-    console.log("Random word:" + word);
-    for (var i = 0; i < word.length; i++) {
-		blanks += '_';
-	}
-}
-
-RandomWord();
-console.log(client);
-
 client.on('ready', () => {
-	console.log('Logged in as ${client.user.tag}');
+    console.log('Logged in as ${client.user.tag}');
+    RandomWord();
+    console.log(client);
 });
 
 client.on('message', () => {
@@ -47,14 +34,14 @@ client.on('message', () => {
             } else {
                 msg.reply("Correct");
                 msg.reply(blanks);
-                msg.reply(blanks + "\nAttempts left: ${tries - attempts}");
+                msg.reply(blanks + '\nAttempts left: ${tries - attempts}');
             }
         } else {
             console.log("Word: " + word + "\nBlanks: " + blanks);
             attempts++;
             msg.reply("Incorrect");
             msg.reply(blanks);
-            msg.reply(blanks + "\nAttempts left: ${tries - attempts}");
+            msg.reply(blanks + '\nAttempts left: ${tries - attempts}');
         }
 	} else if (content.length === word.length && strGuess.test(content)) {
         if (content === word) {
@@ -83,6 +70,18 @@ function lose(msg) {
 function reset() {
     RandomWord();
     attempts = 0;
+}
+
+function RandomWord() {
+    var requestStr = "http://randomword.setgetgo.com/get.php";
+    let xhr = new xmlhttprequest.XMLHttpRequest();
+    xhr.open("GET", requestStr, false);
+    xhr.send();
+    // word = xhr.responseText;
+    console.log("Random word:" + word);
+    for (var i = 0; i < word.length; i++) {
+		blanks += '_';
+	}
 }
 
 client.login('NzgxMzE1NDYwMTQ2Mzk3MTk0.X772uQ.hYltczJTp_JfS7TIWluwwJCD-tA');
