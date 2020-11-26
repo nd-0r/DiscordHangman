@@ -1,26 +1,21 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-var word = "";
+const xmlhttprequest = require('xmlhttprequest');
+var word = "parmel";
 var blanks = "";
 const charGuess = new RegExp("\b[a-z]\b,\d");
 const strGuess = new RegExp("^[a-z]+$");
 var attempts = 0;
 const tries = 6;
 
-
 function RandomWord() {
     var requestStr = "http://randomword.setgetgo.com/get.php";
-    $.ajax({
-        type: "GET",
-        url: requestStr,
-        dataType: "jsonp",
-        jsonpCallback: 'gotRandomWord'
-    });
-}
-
-function gotRandomWord(data) {
-    word = data.Word;
-	for (var i = 0; i < word.length; i++) {
+    let xhr = new xmlhttprequest.XMLHttpRequest();
+    xhr.open("GET", requestStr, false);
+    xhr.send();
+    // word = xhr.responseText;
+    console.log("Random word:" + word);
+    for (var i = 0; i < word.length; i++) {
 		blanks += '_';
 	}
 }
@@ -89,3 +84,5 @@ function reset() {
     RandomWord();
     attempts = 0;
 }
+
+client.login('NzgxMzE1NDYwMTQ2Mzk3MTk0.X772uQ.hYltczJTp_JfS7TIWluwwJCD-tA');
