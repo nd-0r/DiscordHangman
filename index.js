@@ -11,7 +11,7 @@ var attempts = 0;
 const tries = 6;
 
 client.on('ready', () => {
-    console.log('Logged in as ${client.user.tag}');
+    console.log(`Logged in as ${client.user.tag}`);
     RandomWord();
     console.log(client);
 });
@@ -37,7 +37,7 @@ function game(msg) {
         var letter = str[0];
         var index = str[1];
         if (index < 0 || index > word.length) {
-            msg.reply('Invalid index. Word is length ${word.length}. Try again.');
+            msg.reply(`Invalid index. Word is length ${word.length}. Try again.`);
         }
         // handle extra guesses later
         if (word.charAt(index) === letter) {
@@ -48,14 +48,14 @@ function game(msg) {
             } else {
                 msg.reply("Correct");
                 msg.reply(blanks);
-                msg.reply(blanks + '\nAttempts left: ${tries - attempts}');
+                msg.reply(blanks + `\nAttempts left: ${tries - attempts}`);
             }
         } else {
             console.log("Word: " + word + "\nBlanks: " + blanks);
             attempts++;
             msg.reply("Incorrect");
             msg.reply(blanks);
-            msg.reply(blanks + '\nAttempts left: ${tries - attempts}');
+            msg.reply(blanks + `\nAttempts left: ${tries - attempts}`);
         }
 	} else if (content.length === word.length && strGuess.test(content)) {
         if (content === word) {
@@ -72,12 +72,12 @@ function game(msg) {
 }
 
 function win(msg) {
-    msg.reply('You win!!! The word is: ${word}');
+    msg.reply(`You win!!! The word is: ${word}`);
     reset();
 }
 
 function lose(msg) {
-    msg.reply('You lose. The word is: ${word}');
+    msg.reply(`You lose. The word is: ${word}`);
     reset();
 }
 
