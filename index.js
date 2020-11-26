@@ -20,7 +20,7 @@ client.on('message', msg => {
     if (msg.content.toLowerCase() === "!start") {
         started = true;
         RandomWord();
-        msg.reply("Starting hangman. Reply '!stop' to exit. Remember to preface all commands with '!'");
+        msg.reply("Starting hangman. Reply '!stop' to exit.\nRemember to preface all commands with '!'");
         msg.reply(`Word: ${blanks}`);
     } else if (msg.content.toLowerCase() === "!stop") {
         reset();
@@ -36,7 +36,8 @@ function game(msg) {
     console.log("CONTENT: " + content);
     console.log("test charGuess: " + charGuess.test(content));
     console.log("test strGuess: " + strGuess.test(content));
-    if (attempts > tries) {
+    console.log("ATTEMPTS TOP: " + attempts);
+    if (attempts + 2 > tries) {
         lose(msg);
     } else if (charGuess.test(content)) {
         const str = content.split(",");
@@ -47,20 +48,19 @@ function game(msg) {
         }
         // handle extra guesses later
         if (word.charAt(index) === letter) {
-            blanks = blanks.substring(0, index) + letter + blanks.substring(index + 1);
+            blanks = blanks.substring(0, index * 2) + letter + blanks.substring((index * 2) + 1);
             console.log("Word: " + word + "\nBlanks: " + blanks);
             if (blanks.replace(/\s+/g, '') === word) {
                 win(msg);
             } else {
                 msg.reply("Correct");
-                msg.reply(blanks);
                 msg.reply(blanks + `\nAttempts left: ${tries - attempts}`);
             }
         } else {
             console.log("Word: " + word + "\nBlanks: " + blanks);
             attempts++;
+            console.log("ATTEMPTS: " + attempts);
             msg.reply("Incorrect");
-            msg.reply(blanks);
             msg.reply(blanks + `\nAttempts left: ${tries - attempts}`);
         }
 	} else if (content.length === word.length && strGuess.test(content)) {
@@ -100,7 +100,7 @@ function RandomWord() {
     // word = xhr.responseText;
     console.log("Random word:" + word);
     for (var i = 0; i < word.length; i++) {
-		blanks += '_  ';
+		blanks += '# ';
 	}
 }
 
