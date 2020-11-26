@@ -1,10 +1,10 @@
 {
 "name": "Hangman",
 "version": "1.0.0",
-“description”: “My first attempt at a discord bot”,
-“main”: “index.js”,
-“author”: “Andrew Orals”,
-“dependencies”: {
+"description": "My first attempt at a discord bot",
+"main": "index.js",
+"author": "Andrew Orals",
+"dependencies": {
 "discord.js": "^2.5.3",
 "xmlhttprequest": "^1.8.0"
 }
