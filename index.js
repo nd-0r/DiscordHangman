@@ -1,5 +1,10 @@
 const Discord = require('discord.js');
-const client = new Discord.Client();
+var auth = require('./auth.json');
+const client = new Discord.Client({
+    token: auth.token,
+    autorun: true
+});
+var started = false;
 const xmlhttprequest = require('xmlhttprequest');
 var word = "parmel";
 var blanks = "";
@@ -15,6 +20,18 @@ client.on('ready', () => {
 });
 
 client.on('message', () => {
+    if (msg.content.toLowerCase() === "!start") {
+        started = true;
+        msg.reply("Starting hangman. Reply '!stop' to exit");
+    } else if (msg.content.toLowerCase() === "!stop") {
+        reset();
+        started = false;
+    } else if (started) {
+        game(msg);
+    }
+});
+
+function game(msg) {
     var content = msg.content.toLowerCase();
     if (attempts > tries) {
         lose(msg);
@@ -55,7 +72,7 @@ client.on('message', () => {
     } else {
         msg.reply('Make guesses in this format: <letter>,<index> or guess the full word.');
     }
-});
+}
 
 function win(msg) {
     msg.reply('You win!!! The word is: ${word}');
