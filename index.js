@@ -12,7 +12,6 @@ const tries = 6;
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}`);
-    RandomWord();
     console.log(client);
 });
 
@@ -20,10 +19,13 @@ client.on('message', msg => {
     console.log(msg.content);
     if (msg.content.toLowerCase() === "!start") {
         started = true;
-        msg.reply("Starting hangman. Reply '!stop' to exit");
+        RandomWord();
+        msg.reply("Starting hangman. Reply '!stop' to exit. Remember to preface all commands with '!'");
+        msg.reply(`Word: ${blanks}`);
     } else if (msg.content.toLowerCase() === "!stop") {
         reset();
         started = false;
+        msg.reply("OK, bye.");
     } else if (started && msg.content.startsWith('!')) {
         game(msg);
     }
@@ -47,7 +49,7 @@ function game(msg) {
         if (word.charAt(index) === letter) {
             blanks = blanks.substring(0, index) + letter + blanks.substring(index + 1);
             console.log("Word: " + word + "\nBlanks: " + blanks);
-            if (blanks === word) {
+            if (blanks.replace(/\s+/g, '') === word) {
                 win(msg);
             } else {
                 msg.reply("Correct");
@@ -98,7 +100,7 @@ function RandomWord() {
     // word = xhr.responseText;
     console.log("Random word:" + word);
     for (var i = 0; i < word.length; i++) {
-		blanks += '_';
+		blanks += '_  ';
 	}
 }
 
