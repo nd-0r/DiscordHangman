@@ -5,8 +5,8 @@ var started = false;
 const xmlhttprequest = require('xmlhttprequest');
 var word = "parmel";
 var blanks = "";
-const charGuess = new RegExp("\b[a-z]\b,\d");
-const strGuess = new RegExp("^[a-z]+$");
+const charGuess = new RegExp('\b[a-z]\b,\d');
+const strGuess = new RegExp('^[a-z]+$');
 var attempts = 0;
 const tries = 6;
 
@@ -17,6 +17,7 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
+    console.log(msg.content);
     if (msg.content.toLowerCase() === "!start") {
         started = true;
         msg.reply("Starting hangman. Reply '!stop' to exit");
