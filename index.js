@@ -9,6 +9,7 @@ const charGuess = /\b[a-z]\b,\d/;
 const strGuess = /^[a-z]+$/;
 var attempts = 0;
 const tries = 6;
+const USAGE_TIP = "Make guesses in this format: <letter>,<index> or guess the full word.\n\nRemember to preface all commands with '!'"
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}`);
@@ -20,7 +21,7 @@ client.on('message', msg => {
     if (msg.content.toLowerCase() === "!start") {
         started = true;
         RandomWord();
-        msg.reply("Starting hangman. Reply '!stop' to exit.\nRemember to preface all commands with '!'");
+        msg.reply("Starting hangman. Reply '!stop' to exit.\n" + USAGE_TIP);
         msg.reply(`Word: ${blanks}`);
     } else if (msg.content.toLowerCase() === "!stop") {
         reset();
@@ -73,7 +74,7 @@ function game(msg) {
             lose(msg);
         }
     } else {
-        msg.reply('Make guesses in this format: <letter>,<index> or guess the full word.');
+        msg.reply(USAGE_TIP);
     }
 }
 
