@@ -9,6 +9,8 @@ const charGuess = /\b[a-z]\b,\d/;
 const strGuess = /^[a-z]+$/;
 var attempts = 0;
 const tries = 6;
+const MIN_WORD_LENGTH = 3
+const MAX_WORD_LENGTH = 10
 const USAGE_TIP = "Make guesses in this format: <letter>,<index> or guess the full word.\n\nRemember to preface all commands with '!'"
 
 client.on('ready', () => {
@@ -89,20 +91,22 @@ function lose(msg) {
 }
 
 function reset() {
+    msg.reply(`Reply !start to play again.`);
     RandomWord();
     attempts = 0;
 }
 
 function RandomWord() {
-    var requestStr = "http://randomword.setgetgo.com/get.php";
+    var requestStr = `http://api.wordnik.com:80/v4/words.json/randomWords?hasDictionaryDef=true&minCorpusCount=0&minLength=${MIN_WORD_LENGTH}&maxLength=${MAX_WORD_LENGTH}&limit=1&api_key=${auth.wordnik_key}`;
     let xhr = new xmlhttprequest.XMLHttpRequest();
     xhr.open("GET", requestStr, false);
     xhr.send();
-    // word = xhr.responseText;
+    var response = JSON.parse(xhr.responseText);
+    word = response.word
     console.log("Random word:" + word);
     for (var i = 0; i < word.length; i++) {
 		blanks += '# ';
 	}
 }
 
-client.login(auth.token);
+client.login(auth.discord_token);
